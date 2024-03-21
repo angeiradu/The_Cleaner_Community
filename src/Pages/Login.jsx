@@ -37,10 +37,10 @@ export default function Login() {
   };
 
   return (
-    <div className="bg-[#11a37f] p-[50px]">
-      <div className="bg-[#fbfdfd] rounded-2xl py-[50px] px-[320px]">
+    <div className="bg-[#11a37f] p-[2px] md:h-screen flex md:justify-center md:p-[50px] lg:p-[50px] xl:p-[50px]">
+      <div className="bg-[#fbfdfd] rounded-2xl py-[2px] md:py-[50px] w-full lg:py-[50px] xl:py-[50px]  px-[2px]  lg:px-[320px] xl:px-[320px]">
         <div className="bg-[#ffffff] p-2 rounded">
-          <div className="bg-[#eef8f6] p-[20px] rounded text-center">
+          <div className="bg-[#eef8f6] py-[150px] md:py-[220px] lg:py-[20px] xl:py-[20px] p-[20px] rounded text-center">
             <div>
               <div className="flex justify-center mb-4">
                 <GiVacuumCleaner className="text-green-500 text-[40px]" />
