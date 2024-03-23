@@ -1,8 +1,20 @@
 import React from 'react'
 import { DashboardData } from '../Data/DashboardData'
 import { TransactionsData } from '../Data/TransactionsData'
-
+import PieChart from '../Components/PieChart'
+ const gdata = [
+        { label: 'A', value: 10, color: 'bg-blue-500' },
+        { label: 'B', value: 20, color: 'bg-green-500' },
+        { label: 'C', value: 15, color: 'bg-yellow-500' },
+        { label: 'D', value: 25, color: 'bg-red-500' },
+        { label: 'E', value: 30, color: 'bg-purple-500' },
+      ];
 export default function Dashboard() {
+    const data = [20, 30, 40, 10];
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
+    const width = 200;
+    const height = 200;
+    const maxValue = Math.max(...data.map(item => item.value));
   return (
     <div className='grid grid-cols-1  xl:flex lg:flex'>
         <div className='bg-[#252a48] xl:h-screen lg:h-screen w-full'>
@@ -23,6 +35,11 @@ export default function Dashboard() {
                             )
                         })
                     }
+                </div>
+                <div className="mt-3">
+                    <div className="bg-[#2c3157] p-8 rounded-3xl">
+                        <PieChart data={data} colors={colors} width={width} height={height} />
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,7 +65,7 @@ export default function Dashboard() {
                         return (
                             <div className='mb-2 flex gap-3'>
                                 <div className='w-[50px]'>
-                                    <div className={`${items.transactionType === 'Deposit waste' ? 'bg-[#8bafee] pt-3' : 'bg-[#f979a8] pt-3'} ' h-12 w-12 rounded-full flex justify-center text-[23px] text-white'`}>{items.icons}</div>
+                                    <div className={`${items.transactionType === 'Deposit waste' ? 'bg-[#8bafee] text-white pt-3' : 'bg-[#f979a8] text-white pt-3'} ' h-12 w-12 rounded-full flex justify-center text-[23px]'`}>{items.icons}</div>
                                 </div>
                                 
                                 <div className='w-full'>
