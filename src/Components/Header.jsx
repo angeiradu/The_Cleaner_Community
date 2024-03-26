@@ -1,5 +1,5 @@
 import React from 'react';
-import ange from '../Assets/ange.jpg';
+import ange from '../Assets/images/ange.jpg';
 
 export default function Header() {
 
