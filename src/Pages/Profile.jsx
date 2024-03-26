@@ -7,6 +7,7 @@ import { MdContacts } from "react-icons/md";
 import { FaRegCreditCard } from "react-icons/fa6";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { SiGnuprivacyguard } from "react-icons/si";
+import { AiOutlineLogout } from "react-icons/ai";
 
 export default function Profile() {
   return (
@@ -73,8 +74,9 @@ export default function Profile() {
             <div><SiGnuprivacyguard className='text-[25px]' /></div>
           </div>
       </div>
-      <div>
-        <div></div>
+      <div className='flex gap-3 text-red-500 font-bold py-5 justify-center'>
+        <div className='pt-[5px]'><AiOutlineLogout /></div>
+        <div>Logout</div>
       </div>
     </div>
   )
