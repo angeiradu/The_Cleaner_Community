@@ -21,11 +21,11 @@ export const SidebarData = [
         name: 'Payment Gateway',
         path: '/payment',
     },
-    {
-        icons:<RiProfileLine />,
-        name: 'Geolocation',
-        path: '/geolocation',
-    },
+    // {
+    //     icons:<RiProfileLine />,
+    //     name: 'Geolocation',
+    //     path: '/geolocation',
+    // },
     {
         icons:<RiProfileLine />,
         name: 'Help center',
