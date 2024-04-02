@@ -8,8 +8,11 @@ import Profile from "./Pages/Profile";
 import Scheduling from "./Pages/Scheduling";
 import Payment from "./Pages/Payment";
 import Help from "./Pages/Help";
-import Geolocation from "./Pages/Geolocation";
+import Cleaner from "./Pages/Cleaner";
+import Users from "./Pages/Users";
 import Feedback from "./Pages/Feedback";
+import EditCleaner from "./Pages/EditCleaner";
+import EditUsers from "./Pages/EditUsers";
 function App() {
   return (
   <BrowserRouter>
@@ -20,8 +23,11 @@ function App() {
         <Route path="/scheduling" element={<Scheduling />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/help" element={<Help />} />
-        <Route path="/geolocation" element={<Geolocation />} />
+        <Route path="/cleaner" element={<Cleaner />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/feedback" element={<Feedback />} />
+        <Route path="/editcleaner" element={<EditCleaner />} />
+        <Route path="/editusers" element={<EditUsers />} />
       </Route>
       <Route path="*" element={<NotFound />} />
       <Route path="/" element={<Login />} />

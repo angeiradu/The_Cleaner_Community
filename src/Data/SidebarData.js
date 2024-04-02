@@ -1,5 +1,7 @@
 import { MdDashboard } from "react-icons/md";
 import { RiProfileLine } from "react-icons/ri";
+import { FaUserSecret } from "react-icons/fa";
+import { GiVacuumCleaner } from "react-icons/gi";
 export const SidebarData = [
     {
         icons:<MdDashboard />,
@@ -21,11 +23,16 @@ export const SidebarData = [
         name: 'Payment Gateway',
         path: '/payment',
     },
-    // {
-    //     icons:<RiProfileLine />,
-    //     name: 'Geolocation',
-    //     path: '/geolocation',
-    // },
+    {
+        icons:<GiVacuumCleaner />,
+        name: 'Manage Cleaner',
+        path: '/cleaner',
+    },
+    {
+        icons:<FaUserSecret />,
+        name: 'Manage Users',
+        path: '/users',
+    },
     {
         icons:<RiProfileLine />,
         name: 'Help center',
