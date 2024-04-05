@@ -1,14 +1,38 @@
 import React, { useState } from 'react';
-import { SchedureData } from '../Data/SchedureData';
-import { FaPlusCircle } from "react-icons/fa";
 import ange from '../Assets/images/ange.jpg';
 import { IoMdClose } from "react-icons/io";
-import { MdDelete } from "react-icons/md";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 export default function Scheduling() {
   const [breakSections, setBreakSections] = useState({});
   const [fromValue, setFromValue] = useState("8:00 am");
   const [toValue, setToValue] = useState("8:00 pm");
+  const [noDataMessage] = useState("");
+  const [cleaners] = useState([
+    {
+      id: 1,
+      name: "John Doe",
+      services: "Cleaning, Dusting"
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      services: "Vacuuming, Mopping"
+    },
+    {
+      id: 3,
+      name: "Ange divine",
+      services: "Vacuuming, Mopping"
+    },
+    {
+      id: 4,
+      name: "Christophe",
+      services: "Vacuuming, Mopping"
+    }
+  ]);
+  const [selectedCleaner, setSelectedCleaner] = useState('');
+  const [selectedCleanerServices, setSelectedCleanerServices] = useState([]);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const addBreak = (day, fromValue, toValue) => {
     const key = Math.random().toString(36).substring(7);
@@ -24,6 +48,11 @@ export default function Scheduling() {
     }));
   };
 
+  const handleCleanerClick = (cleaner) => {
+    setSelectedCleaner(cleaner.name);
+    setSelectedCleanerServices(cleaner.services);
+  };
+
   const toggleBreakSection = (day, key) => {
     setBreakSections(prevBreakSections => ({
       ...prevBreakSections,
@@ -31,26 +60,24 @@ export default function Scheduling() {
     }));
   };
 
+  const handleSubmit = () => {
+    setSuccessMessage("Scheduled successfully!");
+  };
+
   return (
     <div className="p-4">
-      <div className='mb-4'>Staff Members <span className='text-gray-500'>(8)</span></div>
+      <div className='mb-4'>Staff Members</div>
+      {successMessage && <div className='bg-green-500 text-white my-2 rounded py-2 px-4 text-center'>{successMessage}</div>}
       <div className='xl:flex lg:flex gap-4'>
         <div className='xl:w-[380px] lg:w-[380px] w-full'>
-          {
-            SchedureData.map((item) => {
-              return (
-                <div className={`${item.name === 'Ange Iradukunda' ? 'bg-blue-500 flex text-white' : 'bg-white flex'} gap-4 mb-2 p-2 rounded hover:border`}>
-                  <div className='pt-4'>{item.icons}</div>
-                  <div><img src={item.picture} className='w-[50px] rounded' alt="Profile" /></div>
-                  <div className='pt-3'>{item.name}</div>
-                </div>
-              )
-            })
-          }
-          <div className="flex gap-3 justify-center mt-8 text-green-500 border border-green-500 rounded py-3 px-8">
-            <div className='pt-1'><FaPlusCircle /></div>
-            <div>Add New staff member</div>
-          </div>
+          {noDataMessage && <div className='bg-teal-500 text-white my-2 rounded py-2 px-4 text-center'>{noDataMessage}</div>}
+          {cleaners.map((cleaner, index) => (
+            <div key={index} className={`bg-white flex gap-4 mb-2 p-2 rounded hover:border ${index === 0 ? 'bg-green-500 text-black-500' : ''}`} onClick={() => handleCleanerClick(cleaner)}>
+              <div className='pt-4'><RxHamburgerMenu /></div>
+              <div><img src={ange} className='w-[50px] rounded' alt="Profile" /></div>
+              <div className='pt-3'>{cleaner.name}</div>
+            </div>
+          ))}
         </div>
         <div className='bg-white p-5 w-full'>
           <div className='flex gap-4'>
@@ -59,8 +86,12 @@ export default function Scheduling() {
             </div>
             <div className='pt-3 w-full'>
               <div className='font-bold'>Full name <span className='text-red-500'>*</span></div>
-              <div> <input type="text" name="name" id="" placeholder='Iradukunda Ange' className="border px-4 py-1 w-full rounded" /> </div>
+              <input type="text" name="name" id="" placeholder='Eg: Iradukunda Ange' className="border px-4 py-1 w-full rounded" value={selectedCleaner} readOnly /> 
             </div>
+          </div>
+          <div className='pt-3 w-full'>
+            <div className='font-bold'>Services <span className='text-red-500'>*</span></div>
+            <input type="text" name="services" id="" className="border px-4 py-1 w-full rounded" value={selectedCleanerServices} readOnly />
           </div>
           {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, index) => (
             <div key={index}>
@@ -97,13 +128,9 @@ export default function Scheduling() {
           ))}
           <hr className='my-4' />
           <div className='xl:flex lg:flex  justify-between p-3 m-4'>
-            <div className='text-red-500 flex mb-2 xl:mb-0 md:mb-0 lg:mb-0 gap-2'>
-              <div className='pt-1'><MdDelete /></div>
-              <div>Delete staff member</div>
-            </div>
             <div className='text-white flex gap-2'>
               <div>
-                <button className='bg-[#64c700] border border-[#64c700] px-4 py-1 rounded'>Save</button>
+                <button className='bg-[#64c700] border border-[#64c700] px-4 py-1 rounded' onClick={handleSubmit}>Save</button>
               </div>
               <div>
                 <button className='border border-gray-500 text-gray-500 px-4 py-1 rounded'>Cancel</button>

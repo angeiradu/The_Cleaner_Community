@@ -19,6 +19,8 @@ export default function Signup() {
     confirmPassword: ''
   });
 
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -61,9 +63,11 @@ export default function Signup() {
     }
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      console.log('Form submitted:', formData);
+      localStorage.setItem('formData', JSON.stringify(formData));
+      setRegistrationSuccess(true);
     }
   };
+  
 
   return (
     <div className="bg-[#11a37f] p-[2px]  flex md:justify-center md:p-[50px] lg:p-[50px] xl:p-[50px]">
@@ -177,6 +181,9 @@ export default function Signup() {
                 </button>
               </div>
             </form>
+            {registrationSuccess && (
+              <div className="text-green-500 mt-4">Registration successful!</div>
+            )}
             <div className="flex gap-2 mt-2">
               <div>Already have an account?</div>
               <Link to="/">

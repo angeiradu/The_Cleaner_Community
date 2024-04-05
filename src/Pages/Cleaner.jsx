@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
-
 
 export default function Cleaner() {
   const [showModal, setShowModal] = useState(false);
@@ -13,6 +12,11 @@ export default function Cleaner() {
     email: ""
   });
   const [errors, setErrors] = useState({});
+  const [cleaners, setCleaners] = useState([
+    // Initial data for demonstration
+    { id: 1, name: 'John Doe', services: 'Cleaning', phone: '123456789', email: 'john@example.com' }
+  ]);
+  const [successMessage, setSuccessMessage] = useState("");
   const modalRef = useRef(null);
 
   const toggleModal = () => {
@@ -25,6 +29,8 @@ export default function Cleaner() {
         email: ""
       });
       setErrors({});
+    } else {
+      setSuccessMessage(""); // Clear success message when opening modal
     }
   };
 
@@ -55,34 +61,30 @@ export default function Cleaner() {
     }
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-      console.log(formData);
-      setShowModal(false);
+      // Assuming the ID is generated on the client side for demonstration
+      const newCleaner = { ...formData, id: cleaners.length + 1 };
+      setCleaners([...cleaners, newCleaner]);
+      toggleModal();
+      setSuccessMessage("Cleaner added successfully");
     }
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setShowModal(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const handleDelete = (id) => {
+    if (window.confirm('Are you sure you want to delete this cleaner?')) {
+      setCleaners(cleaners.filter(cleaner => cleaner.id !== id));
+    }
+  };
 
   return (
     <div className='p-8'>
+      {successMessage && <div className='bg-green-500 text-white my-2 rounded py-2 px-4 text-center'>{successMessage}</div>}
       <div className='flex justify-between'>
         <div>Manage Cleaners</div>
         <div>
           <button onClick={toggleModal} className='bg-teal-500 text-white py-2 px-6 rounded'>New Cleaner</button>
         </div>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" id="reportTable">
         <table className="table-auto w-full">
           <thead>
             <tr>
@@ -95,81 +97,23 @@ export default function Cleaner() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="border px-1 text-center py-2">1</td>
-              <td className="border px-4 py-2">John Doe</td>
-              <td className="border px-4 py-2">Cleaning</td>
-              <td className="border px-4 py-2">1234567890</td>
-              <td className="border px-4 py-2">john@example.com</td>
-              <td className="border px-4 py-2 text-center">
-                <div className="flex gap-2 justify-center">
-                  <Link to='/editcleaner'>
-                    <div><FaRegEdit className='text-green-500' /></div>
-                  </Link>
-                  <div><MdDelete className='text-red-500' /></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="border px-1 text-center py-2">2</td>
-              <td className="border px-4 py-2">Jane Doe</td>
-              <td className="border px-4 py-2">Window Cleaning</td>
-              <td className="border px-4 py-2">9876543210</td>
-              <td className="border px-4 py-2">jane@example.com</td>
-              <td className="border px-4 py-2">
-                <div className="flex gap-2 justify-center">
-                  <Link to='/editcleaner'>
-                    <div><FaRegEdit className='text-green-500' /></div>
-                  </Link>
-                  <div><MdDelete className='text-red-500' /></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="border text-center px-1 py-2">3</td>
-              <td className="border px-4 py-2">Alice Smith</td>
-              <td className="border px-4 py-2">Floor Cleaning</td>
-              <td className="border px-4 py-2">5556667777</td>
-              <td className="border px-4 py-2">alice@example.com</td>
-              <td className="border px-4 py-2">
-                <div className="flex gap-2 justify-center">
-                  <Link to='/editcleaner'>
-                    <div><FaRegEdit className='text-green-500' /></div>
-                  </Link>
-                  <div><MdDelete className='text-red-500' /></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="border text-center px-1 py-2">4</td>
-              <td className="border px-4 py-2">Bob Johnson</td>
-              <td className="border px-4 py-2">Carpet Cleaning</td>
-              <td className="border px-4 py-2">3332221111</td>
-              <td className="border px-4 py-2">bob@example.com</td>
-              <td className="border px-4 py-2">
-                <div className="flex gap-2 justify-center">
-                  <Link to='/editcleaner'>
-                    <div><FaRegEdit className='text-green-500' /></div>
-                  </Link>
-                  <div><MdDelete className='text-red-500' /></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="border text-center px-1 py-2">5</td>
-              <td className="border px-4 py-2">Emily Wilson</td>
-              <td className="border px-4 py-2">Deep Cleaning</td>
-              <td className="border px-4 py-2">7778889999</td>
-              <td className="border px-4 py-2">emily@example.com</td>
-              <td className="border px-4 py-2">
-                <div className="flex gap-2 justify-center">
-                  <Link to='/editcleaner'>
-                    <div><FaRegEdit className='text-green-500' /></div>
-                  </Link>
-                  <div><MdDelete className='text-red-500' /></div>
-                </div>
-              </td>
-            </tr>
+            {cleaners.map(cleaner => (
+              <tr key={cleaner.id}>
+                <td className="border px-1 text-center py-2">{cleaner.id}</td>
+                <td className="border px-4 py-2">{cleaner.name}</td>
+                <td className="border px-4 py-2">{cleaner.services}</td>
+                <td className="border px-4 py-2">{cleaner.phone}</td>
+                <td className="border px-4 py-2">{cleaner.email}</td>
+                <td className="border px-4 py-2 text-center">
+                  <div className="flex gap-2 justify-center">
+                    <Link to={`/editcleaner/${cleaner.id}`}>
+                      <div><FaRegEdit className='text-green-500' /></div>
+                    </Link>
+                    <div><MdDelete className='text-red-500' onClick={() => handleDelete(cleaner.id)} /></div>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

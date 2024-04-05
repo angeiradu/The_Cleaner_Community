@@ -13,6 +13,7 @@ import Users from "./Pages/Users";
 import Feedback from "./Pages/Feedback";
 import EditCleaner from "./Pages/EditCleaner";
 import EditUsers from "./Pages/EditUsers";
+import BookCleaner from "./Pages/BookCleaner";
 function App() {
   return (
   <BrowserRouter>
@@ -28,6 +29,7 @@ function App() {
         <Route path="/feedback" element={<Feedback />} />
         <Route path="/editcleaner" element={<EditCleaner />} />
         <Route path="/editusers" element={<EditUsers />} />
+        <Route path="/book" element={<BookCleaner />} />
       </Route>
       <Route path="*" element={<NotFound />} />
       <Route path="/" element={<Login />} />

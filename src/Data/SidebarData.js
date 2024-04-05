@@ -2,6 +2,8 @@ import { MdDashboard } from "react-icons/md";
 import { RiProfileLine } from "react-icons/ri";
 import { FaUserSecret } from "react-icons/fa";
 import { GiVacuumCleaner } from "react-icons/gi";
+import { CiSquareQuestion } from "react-icons/ci";
+
 export const SidebarData = [
     {
         icons:<MdDashboard />,
@@ -17,6 +19,11 @@ export const SidebarData = [
         icons:<RiProfileLine />,
         name: 'Scheduling',
         path: '/scheduling',
+    },
+    {
+        icons:<CiSquareQuestion  />,
+        name: 'Request Cleaner',
+        path: '/book',
     },
     {
         icons:<RiProfileLine />,

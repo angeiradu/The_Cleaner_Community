@@ -7,26 +7,26 @@ export const DashboardData = [
     {
         icons:<PiStudentDuotone />,
         name: 'Users',
-        number: '323',
+        number: '4',
     },
     {
         icons:<GiTeacher />,
         name: 'Active Users',
-        number: '32643',
+        number: '1',
     },
     {
         icons:<FiUsers />,
         name: 'InActive Users',
-        number: '34523',
+        number: '3',
     },
     {
         icons:<FaUserSecret />,
         name: 'Employees',
-        number: '32367',
+        number: '7',
     },
     {
         icons:<FaUserSlash />,
         name: 'Total Amount',
-        number: '323834',
+        number: '1323',
     }
 ]

@@ -10,7 +10,8 @@ export default function Login() {
 
   const [errors, setErrors] = useState({
     username: '',
-    password: ''
+    password: '',
+    loginError: ''
   });
 
   const handleChange = (e) => {
@@ -30,9 +31,15 @@ export default function Login() {
     if (!formData.password.trim()) {
       newErrors.password = 'Password is required';
     }
-    setErrors(newErrors);
+    setErrors({ ...newErrors, loginError: '' });
     if (Object.keys(newErrors).length === 0) {
-      console.log('Form submitted:', formData);
+      const storedUserData = JSON.parse(localStorage.getItem('formData'));
+      if (storedUserData && formData.username === storedUserData.email && formData.password === storedUserData.password) {
+        
+        window.location.href = '/dashboard';
+      } else {
+        setErrors({ ...newErrors, loginError: 'Invalid username or password' });
+      }
     }
   };
 
@@ -90,6 +97,9 @@ export default function Login() {
                 >
                   Sign In
                 </button>
+                {errors.loginError && (
+                  <span className="text-red-500 flex mt-2">{errors.loginError}</span>
+                )}
               </div>
             </form>
             <div className="flex gap-2 mt-2">

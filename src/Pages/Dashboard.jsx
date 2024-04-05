@@ -62,11 +62,12 @@ export default function Dashboard() {
                                 
                                 <div className='w-full'>
                                     <div className='flex justify-between text-white'>
-                                        <div>{items.transactionType}</div>
+                                        {/* <div>{items.transactionType}</div> */}
+                                        <div>{items.name}</div>
                                         <div>{items.amount}</div>
                                     </div>
                                     <div className='flex justify-between text-gray-400'>
-                                        <div>{items.name}</div>
+                                        
                                         <div>{items.date}</div>
                                     </div>
                                 </div>
