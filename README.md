@@ -21,7 +21,7 @@ To get a local copy up and running follow these simple steps.
 ## Navigate to the project directory
  cd your-repo
 
-##Setting up React.js
+## Setting up React.js
 
 1.Install React.js dependencies
   npm install react react-dom
@@ -33,7 +33,7 @@ npm start
 or
 yarn start
 
-##Setting up Tailwind CSS
+## Setting up Tailwind CSS
 
 1.Install Tailwind CSS and its dependencies
 
