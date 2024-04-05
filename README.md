@@ -44,7 +44,10 @@ Follow these steps to run the project:
 ```bash
     npm start
 ```
+<h6>2.Open your browser:</h6>
 
+Once the server has started, open your web browser.
+Navigate to http://localhost:3000 (or whichever port is specified in the terminal) to view the application.
 
 
 ## Deployment
