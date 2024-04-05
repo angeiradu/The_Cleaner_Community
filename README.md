@@ -1,6 +1,6 @@
-# Project Name
+# THE CLEANER COMMUNIY
 
-Brief description or overview of your project.
+This is an application that connects homeowners and business with local cleaners.
 
 ## Prerequisites
 
