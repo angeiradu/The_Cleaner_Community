@@ -41,9 +41,9 @@ Follow these steps to get the project up and running on your local machine:
 Follow these steps to run the project:
 <h6>1.Start the development server:</h6>
 
-    ```bash
+```bash
     npm start
-    ```
+```
 
 
 
