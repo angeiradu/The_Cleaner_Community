@@ -44,8 +44,8 @@ export default function Dashboard() {
                         <div className='bg-[#e9b4d6] h-6 w-6 rounded-full ml-[-6px]'></div>
                     </div>
                 </div>
-                <div className='text-[#c8bdeb] mt-8'>Your Income</div>
-                <div className='text-white text-[28px]'>$647364</div>
+                <div className='text-[#c8bdeb] mt-8'></div>
+                <div className='text-white text-[28px]'></div>
             </div>
             <div className='flex justify-between py-6'>
                 <div className='text-white font-bold'>Last Transactions</div>

@@ -28,16 +28,16 @@ export default function Profile() {
       </div>
       <div className='grid grid-cols-3 border border-gray-300 rounded-2xl py-4 mt-6'>
         <div className='text-center'>
-          <div className='font-bold text-[20px]'>$250,550</div>
-          <div className='text-gray-500'>balance</div>
+          <div className='font-bold text-[20px]'></div>
+          <div className='text-gray-500'></div>
         </div>
         <div className='text-center'>
-          <div className='font-bold text-[20px]'>$350,550</div>
-          <div className='text-gray-500'>Deposits</div>
+          <div className='font-bold text-[20px]'></div>
+          <div className='text-gray-500'></div>
         </div>
         <div className='text-center'>
-          <div className='font-bold text-[20px]'>$50,550</div>
-          <div className='text-gray-500'>Withdraws</div>
+          <div className='font-bold text-[20px]'></div>
+          <div className='text-gray-500'></div>
         </div>
       </div>
       <div className='mt-6 font-bold text-[20px] mb-2'>Quick Actions</div>
