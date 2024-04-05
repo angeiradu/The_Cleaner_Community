@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export default function Users() {
     const [showModal, setShowModal] = useState(false);
@@ -96,6 +98,32 @@ export default function Users() {
     useEffect(() => {
     }, []);
 
+    const generatePdf = () => {
+      const input = document.getElementById('reportTable');
+      html2canvas(input)
+        .then((canvas) => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const imgWidth = 210;
+          const pageHeight = 295;
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+          let heightLeft = imgHeight;
+          let position = 0;
+  
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+  
+          while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+          }
+  
+          pdf.save('users_report.pdf');
+        });
+    };
+  
     return (
       <div className='p-8'>
         {successMessage && <div className='bg-green-500 text-white my-2 rounded py-2 px-4 text-center'>{successMessage}</div>}
@@ -104,6 +132,7 @@ export default function Users() {
           <div>Manage Users</div>
           <div>
             <button onClick={toggleModal} className='bg-teal-500 text-white py-2 px-6 rounded'>New User</button>
+            <button onClick={generatePdf} className='bg-blue-500 text-white py-2 px-6 rounded ml-4'>Generate PDF</button>
           </div>
         </div>
         <div className="overflow-x-auto">
