@@ -64,6 +64,8 @@ Navigate to http://localhost:3000 (or whichever port is specified in the termina
 ## Deployment
 To deploy this project, you can follow the standard deployment process for React applications. You may choose services like Netlify, Vercel, GitHub Pages, or deploy it manually to your preferred hosting provider.
 
+The live pruduct: https://the-cleaner-community-mu.vercel.app/
+
 ## Technologies Used
 <li>React.js</li>
 <li>Tailwind CSS
