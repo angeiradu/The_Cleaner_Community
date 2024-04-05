@@ -37,7 +37,7 @@ Follow these steps to get the project up and running on your local machine:
     npm start
     ```
 
-##Usage
+## Usage
 Follow these steps to run the project:
 1.Start the development server:
 
