@@ -39,12 +39,12 @@ Follow these steps to get the project up and running on your local machine:
 
 ##Usage
 Follow these steps to run the project:
-<h6>1.Start the development server:</h6>
+1.Start the development server:
 
 ```bash
     npm start
 ```
-<h6>2.Open your browser:</h6>
+2.Open your browser:
 
 Once the server has started, open your web browser.
 Navigate to http://localhost:3000 (or whichever port is specified in the terminal) to view the application.
