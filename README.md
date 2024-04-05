@@ -25,12 +25,13 @@ To get a local copy up and running follow these simple steps.
 ## Setting up React.js
 
 1.Install React.js dependencies
-
-npm install react react-dom
+  ```sh
+  npm install react react-dom
 or
-yarn add react react-dom
+  yarn add react react-dom
 
 2.Start React development server
+
 npm start
 or
 yarn start
