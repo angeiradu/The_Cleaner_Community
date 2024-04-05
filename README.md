@@ -42,6 +42,6 @@ Follow these steps to get the project up and running on your local machine:
 To deploy this project, you can follow the standard deployment process for React applications. You may choose services like Netlify, Vercel, GitHub Pages, or deploy it manually to your preferred hosting provider.
 
 ## Technologies Used
-React.js
-Tailwind CSS
+<li>React.js</li>
+<li>Tailwind CSS
 
