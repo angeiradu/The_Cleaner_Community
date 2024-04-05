@@ -18,14 +18,15 @@ To get a local copy up and running follow these simple steps.
    ```sh
    git clone https://github.com/your-username/your-repo.git
 
-## Navigate to the project directory
- ```sh
- cd your-repo
+1. Navigate to the project directory
+   ```sh
+   cd your-repo 
 
 ## Setting up React.js
 
 1.Install React.js dependencies
-  npm install react react-dom
+
+npm install react react-dom
 or
 yarn add react react-dom
 
