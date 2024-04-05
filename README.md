@@ -49,6 +49,17 @@ Follow these steps to run the project:
 Once the server has started, open your web browser.
 Navigate to http://localhost:3000 (or whichever port is specified in the terminal) to view the application.
 
+## Features:
+<li>Dashboard</li>
+<li>Profile</li>
+<li>Scheduling</li>
+<li>Request a cleaner</li>
+<li>Payment gateway</li>
+<li>Manager cleaner</li>
+<li>Manager Users</li>
+<li>User Feedback</li>
+<li>Help center</li>
+
 
 ## Deployment
 To deploy this project, you can follow the standard deployment process for React applications. You may choose services like Netlify, Vercel, GitHub Pages, or deploy it manually to your preferred hosting provider.
