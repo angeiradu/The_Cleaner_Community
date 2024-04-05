@@ -37,6 +37,15 @@ Follow these steps to get the project up and running on your local machine:
     npm start
     ```
 
+##Usage
+Follow these steps to run the project:
+<h6>1.Start the development server:</h6>
+
+    ```bash
+    npm start
+    ```
+
+
 
 ## Deployment
 To deploy this project, you can follow the standard deployment process for React applications. You may choose services like Netlify, Vercel, GitHub Pages, or deploy it manually to your preferred hosting provider.
