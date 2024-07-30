@@ -22,7 +22,7 @@ export const SidebarData = [
     },
     {
         icons:<CiSquareQuestion  />,
-        name: 'Request Cleaner',
+        name: 'Booking',
         path: '/book',
     },
     {
@@ -40,14 +40,14 @@ export const SidebarData = [
         name: 'Manage Users',
         path: '/users',
     },
-    {
-        icons:<RiProfileLine />,
-        name: 'Help center',
-        path: '/help',
-    },
+    // {
+    //     icons:<RiProfileLine />,
+    //     name: 'Help center',
+    //     path: '/helpList',
+    // },
     {
         icons:<RiProfileLine />,
         name: 'Feedback',
-        path: '/feedback',
+        path: '/feedbackList',
     }
 ]

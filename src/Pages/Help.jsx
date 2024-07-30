@@ -10,20 +10,21 @@ export default function Help() {
   const [emailError, setEmailError] = useState('');
   const [subjectError, setSubjectError] = useState('');
   const [messageError, setMessageError] = useState('');
-  
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const nameRegex = /^[a-zA-Z\s]+$/;
-if (!name.trim()) {
-  setNameError('Please enter your name');
-  return;
-} else if (!nameRegex.test(name)) {
-  setNameError('Name must contain only letters and spaces');
-  return;
-} else {
-  setNameError('');
-}
+    if (!name.trim()) {
+      setNameError('Please enter your name');
+      return;
+    } else if (!nameRegex.test(name)) {
+      setNameError('Name must contain only letters and spaces');
+      return;
+    } else {
+      setNameError('');
+    }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.trim() || !emailRegex.test(email)) {
@@ -53,10 +54,10 @@ if (!name.trim()) {
         'r5TaQoF09s9oDGmz_'
       );
       console.log('Email sent successfully!');
+      setShowSuccess(true);
     } catch (error) {
       console.error('Error sending email:', error);
     }
-
 
     // Reset form fields after submission
     setName('');
@@ -115,6 +116,21 @@ if (!name.trim()) {
         </div>
         <button type="submit" className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600">Submit</button>
       </form>
+
+      {showSuccess && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-2xl font-bold mb-4">Success!</h3>
+            <p className="mb-4">Your message has been sent successfully.</p>
+            <button
+              onClick={() => setShowSuccess(false)}
+              className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
-  )
+  );
 }

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { GiVacuumCleaner } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase'; 
+import SuccessModal from '../Components/SuccessModal';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -39,7 +42,7 @@ export default function Signup() {
     return regex.test(password);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
     if (!formData.username.trim()) {
@@ -63,14 +66,17 @@ export default function Signup() {
     }
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      localStorage.setItem('formData', JSON.stringify(formData));
-      setRegistrationSuccess(true);
+      try {
+        await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        setRegistrationSuccess(true);
+      } catch (error) {
+        setErrors({ ...newErrors, registrationError: error.message });
+      }
     }
   };
-  
 
   return (
-    <div className="bg-[#11a37f] p-[2px]  flex md:justify-center md:p-[50px] lg:p-[50px] xl:p-[50px]">
+    <div className="bg-[#11a37f] p-[2px] flex md:justify-center md:p-[50px] lg:p-[50px] xl:p-[50px]">
       <div className="bg-[#fbfdfd] rounded-2xl py-[2px] md:py-[50px] w-full lg:py-[50px] xl:py-[50px]  px-[2px]  lg:px-[320px] xl:px-[320px]">
         <div className="bg-[#ffffff] p-2 rounded">
           <div className="bg-[#eef8f6] py-[50px] md:py-[20px] lg:py-[20px] xl:py-[20px] p-[20px] rounded text-center">
@@ -182,7 +188,13 @@ export default function Signup() {
               </div>
             </form>
             {registrationSuccess && (
-              <div className="text-green-500 mt-4">Registration successful!</div>
+            <SuccessModal
+              show={registrationSuccess}
+              onClose={() => setRegistrationSuccess(false)}
+            />
+            )}
+            {errors.registrationError && (
+              <div className="text-red-500 mt-4">Email arleady taken</div>
             )}
             <div className="flex gap-2 mt-2">
               <div>Already have an account?</div>

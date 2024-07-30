@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ange from '../Assets/images/ange.jpg';
 import { RxHamburgerMenu } from "react-icons/rx";
 import emailjs from 'emailjs-com';
+import { db } from '../firebase';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 
 export default function BookCleaner() {
-  const [noDataMessage] = useState("");
-  const [schedules] = useState({
-    schedules: [
-      { id: 1, name: "John Doe", services: "Cleaning" },
-      { id: 2, name: "Jane Smith", services: "Window Cleaning" }
-    ]
-  });
+  const [cleaners, setCleaners] = useState([]);
   const [selectedCleaner, setSelectedCleaner] = useState('');
   const [selectedCleanerServices, setSelectedCleanerServices] = useState('');
   const [successMessage, setSuccessMessage] = useState("");
@@ -22,10 +18,18 @@ export default function BookCleaner() {
     day: ''
   });
 
+  useEffect(() => {
+    const fetchCleaners = async () => {
+      const cleanersCollection = await getDocs(collection(db, 'schedules'));
+      setCleaners(cleanersCollection.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    };
+    fetchCleaners();
+  }, []);
+
   const handleCleanerClick = (cleaner) => {
-    setSelectedCleaner(cleaner.name);
+    setSelectedCleaner(cleaner.cleaner);
     setSelectedCleanerServices(cleaner.services);
-    setAmount(1000); // Reset amount
+    setAmount(1000);
   };
 
   const handleServiceChange = (event) => {
@@ -60,14 +64,29 @@ export default function BookCleaner() {
     return 1000 + additionalAmount;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccessMessage("Booking created successfully");
+
+    const currentDate = new Date();
+
+    try {
+      await addDoc(collection(db, 'bookings'), {
+        name: selectedCleaner,
+        services: selectedCleanerServices,
+        amount: amount,
+        day: formData.day,
+        date: currentDate
+      });
+      setSuccessMessage("Booking created successfully");
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+
     sendEmail();
   };
-  
+
   const sendEmail = () => {
-    // Set up your email service details here
     const emailParams = {
       name: selectedCleaner,
       services: selectedCleanerServices,
@@ -90,14 +109,17 @@ export default function BookCleaner() {
       {successMessage && <div className='bg-green-500 text-white my-2 rounded py-2 px-4 text-center'>{successMessage}</div>}
       <div className='xl:flex lg:flex gap-4'>
         <div className='xl:w-[380px] lg:w-[380px] w-full'>
-          {noDataMessage && <div className='bg-teal-500 text-white my-2 rounded py-2 px-4 text-center'>{noDataMessage}</div>}
-          {schedules.schedules.map((schedule, index) => (
-            <div key={index} className={`bg-white flex gap-4 mb-2 p-2 rounded hover:border `} onClick={() => handleCleanerClick(schedule)}>
-              <div className='pt-4'><RxHamburgerMenu /></div>
-              <div><img src={ange} className='w-[50px] rounded' alt="Profile" /></div>
-              <div className='pt-3'>{schedule.name}</div>
-            </div>
-          ))}
+          {cleaners.length === 0 ? (
+            <div className='text-center text-gray-500'>No cleaners available</div>
+          ) : (
+            cleaners.map((cleaner, index) => (
+              <div key={index} className={`bg-white flex gap-4 mb-2 p-2 rounded hover:border `} onClick={() => handleCleanerClick(cleaner)}>
+                <div className='pt-4'><RxHamburgerMenu /></div>
+                <div><img src={ange} className='w-[50px] rounded' alt="Profile" /></div>
+                <div className='pt-3'>{cleaner.cleaner}</div>
+              </div>
+            ))
+          )}
         </div>
         <div className='bg-white p-5 w-full'>
           <div className='flex gap-4'>
@@ -106,16 +128,16 @@ export default function BookCleaner() {
             </div>
             <div className='pt-3 w-full'>
               <div className='font-bold'>Full name <span className='text-red-500'>*</span></div>
-              <input type="text" name="name" id="" placeholder='Eg: Iradukunda Ange' className="border px-4 py-1 w-full rounded" value={selectedCleaner} readOnly />
+              <input type="text" name="name" placeholder='Eg: Iradukunda Ange' className="border px-4 py-1 w-full rounded" value={selectedCleaner} readOnly />
             </div>
           </div>
           <div className='pt-3 w-full'>
             <div className='font-bold'>Services <span className='text-red-500'>*</span></div>
-            <input type="text" name="services" id="" className="border px-4 py-1 w-full rounded" value={selectedCleanerServices} readOnly />
+            <input type="text" name="services" className="border px-4 py-1 w-full rounded" value={selectedCleanerServices} readOnly />
           </div>
           <div className='pt-3 w-full'>
             <div className='font-bold'>Add Services <span className='text-red-500'>*</span></div>
-            <select name="addservices" className="border px-4 py-1 w-full rounded" id="" onChange={handleServiceChange}>
+            <select name="addservices" className="border px-4 py-1 w-full rounded" onChange={handleServiceChange}>
               <option value="">Choose Services</option>
               {['Cleaning', 'Window Cleaning', 'Floor Cleaning', 'Carpet Cleaning', 'Deep Cleaning'].map((service, index) => (
                 <option key={index} value={service}>{service}</option>
@@ -128,7 +150,7 @@ export default function BookCleaner() {
           </div>
           <div className='pt-3 w-full'>
             <div className='font-bold'>Days <span className='text-red-500'>*</span></div>
-            <select name="day" className="border px-4 py-1 w-full rounded" id="">
+            <select name="day" className="border px-4 py-1 w-full rounded" onChange={(e) => setFormData({ ...formData, day: e.target.value })}>
               <option value="">Select Day</option>
               {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, index) => (
                 <option key={index} value={day}>{day}</option>
