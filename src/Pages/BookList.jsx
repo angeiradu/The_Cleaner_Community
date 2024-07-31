@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 import emailjs from 'emailjs-com';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase'; // Import the Firebase auth instance
 import Payment from "./Payment"; // Import the Payment component
 
 export default function BookList() {
@@ -16,6 +18,7 @@ export default function BookList() {
   const [successMessage, setSuccessMessage] = useState('');
   const [showPayment, setShowPayment] = useState(false); // State to control Payment component display
   const modalRef = useRef(null); // Ref for the modal content
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
   useEffect(() => {
     const fetchSchedules = async () => {
@@ -127,6 +130,15 @@ export default function BookList() {
     };
   }, [showModal, handleClickOutside]);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate('/'); // Redirect to login page after logout
+    } catch (error) {
+      console.error('Error signing out: ', error);
+    }
+  };
+
   return (
     <div>
       {showModal && (
@@ -178,11 +190,6 @@ export default function BookList() {
           </div>
         </div>
       )}
-      <div>
-        <Link to="/login">
-          <div className="text-right px-4 py-1 bg-black text-white">Login</div>
-        </Link>
-      </div>
       <div className="py-2 flex justify-end gap-5 px-4 bg-gray-300">
         <Link to="/help">
           <div className="hover:text-blue-500">Contact Us</div>
@@ -190,6 +197,15 @@ export default function BookList() {
         <Link to="/feedback">
           <div className="hover:text-blue-500">Feedback</div>
         </Link>
+        <Link to="/profile">
+          <div className="hover:text-blue-500">Profile</div>
+        </Link>
+        <button 
+          onClick={handleLogout}
+          className="bg-red-500 text-white px-4 rounded-full"
+        >
+          Logout
+        </button>
       </div>
       <div className="p-4">
         <div className="mb-4 text-2xl text-center font-bold">Available Cleaners</div>

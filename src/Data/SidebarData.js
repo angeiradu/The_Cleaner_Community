@@ -10,11 +10,11 @@ export const SidebarData = [
         name: 'Dashboard',
         path: '/dashboard',
     },
-    {
-        icons:<RiProfileLine />,
-        name: 'Profile',
-        path: '/profile',
-    },
+    // {
+    //     icons:<RiProfileLine />,
+    //     name: 'Profile',
+    //     path: '/profile',
+    // },
     {
         icons:<RiProfileLine />,
         name: 'Scheduling',
@@ -25,11 +25,11 @@ export const SidebarData = [
         name: 'Booking',
         path: '/book',
     },
-    {
-        icons:<RiProfileLine />,
-        name: 'Payment Gateway',
-        path: '/payment',
-    },
+    // {
+    //    icons:<RiProfileLine />,
+    //    name: 'Payment Gateway',
+    //    path: '/payment',
+   // },
     {
         icons:<GiVacuumCleaner />,
         name: 'Manage Cleaner',
