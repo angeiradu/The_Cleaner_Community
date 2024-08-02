@@ -66,7 +66,10 @@ To deploy this project, you can follow the standard deployment process for React
 
 The live pruduct: https://the-cleaner-community-mu.vercel.app/
 
-## Technologies Used
+## Technologies Used on Front-end Development:
 <li>React.js</li>
 <li>Tailwind CSS
+
+## Technologies Used on Backend:
+<li>Firebase Database</li>
 
